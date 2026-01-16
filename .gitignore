@@ -1,0 +1,6 @@
+github_auditor_env
+.env
+__pycache__/
+
+
+

@@ -13,6 +13,7 @@ from app.db.database import Base, engine, get_db
 from app.audits.service import save_audit
 from app.routes.audit_route import router as audit_history_router
 from sqlalchemy.orm import Session
+from app.rate_limit.dependencies import audit_rate_limit
 
 Base.metadata.create_all(bind=engine)
 
@@ -36,7 +37,7 @@ def get_github_client() -> GithubClient:
     return GithubClient(app.state.http_client)
 
 @app.get("/audit", response_model=AuditResponse)
-async def audit(owner: str, repo: str, gc: Annotated[GithubClient, Depends(get_github_client)], user:Annotated[User, Depends(get_current_user)], db:Annotated[Session, Depends(get_db)]):
+async def audit(owner: str, repo: str, gc: Annotated[GithubClient, Depends(get_github_client)], user:Annotated[User, Depends(audit_rate_limit)], db:Annotated[Session, Depends(get_db)]):
     tree = await gc.get_tree(owner, repo)
     if not tree:
         raise HTTPException(status_code=400, detail="Empty repository")

@@ -2,9 +2,8 @@
 
 A **production-grade FastAPI backend service** that analyzes public GitHub repositories and generates an **explainable quality score**, detailed findings, and actionable improvement suggestions based on documentation, code quality, security hygiene, testing practices, and repository health.
 
-Designed as a **real-world backend system**, not a toy project.
 
----
+
 
 ## ✨ Key Features
 
@@ -14,7 +13,7 @@ Designed as a **real-world backend system**, not a toy project.
 - Supports **nested folder structures** and arbitrary layouts
 - Correctly handles **case-sensitive file paths**
 
----
+
 
 ### 📄 Documentation Evaluation
 - Detects README files regardless of:
@@ -26,7 +25,7 @@ Designed as a **real-world backend system**, not a toy project.
   - Correct placement at repository root
 - Flags missing or weak documentation
 
----
+
 
 ### 🧠 Code Quality & Structure
 - Detects source code across entire repository
@@ -34,21 +33,21 @@ Designed as a **real-world backend system**, not a toy project.
 - Identifies structured project layouts (`src/`, `app/`, `backend/`, etc.)
 - Avoids false positives from empty or placeholder files
 
----
+
 
 ### 🧪 Testing Practices
 - Detects test files and test directories
 - Supports common naming conventions (`test_*.py`, `*.spec.js`, etc.)
 - Flags repositories with **missing or insufficient tests**
 
----
+
 
 ### 📦 Dependency & Build Hygiene
 - Detects dependency manifests and lock files
 - Ensures dependencies are explicitly defined
 - Flags repositories without proper dependency management
 
----
+
 
 ### 🔐 Security Hygiene (High Severity)
 - Scans source code for **hardcoded secrets**
@@ -58,25 +57,30 @@ Designed as a **real-world backend system**, not a toy project.
   - Passwords
 - Security violations significantly impact score
 
----
+
 
 ### 📊 Repository Health
 - Analyzes **commit history depth**
 - Flags extremely low or trivial commit activity
 - Rewards consistent, meaningful commit history
 
----
+
 
 ## 🧮 Scoring & Evaluation
-
 - Generates a **weighted quality score (0–100)**
 - Assigns a **grade** (A / B / C / D / F)
 - Provides **pass/fail** evaluation
 - Detailed breakdown of each audit category
 - Scores are **consistent, explainable, and transparent**
 
+## 🔐 Authentication & Rate Limiting
+- JWT-based authentication
+- Secure password hashing (bcrypt)
+- Protected audit endpoints
+- Per-user rate limiting on expensive operations
+- Prevents abuse and controls GitHub API usage
 
----
+
 
 ## 📤 Output Format
 
@@ -106,11 +110,8 @@ Audit results are returned as **structured JSON**:
 
 ```
 
-## 📌 Future Enhancements (Currently Working)
 
-
-- **JWT-based authentication & Rate Limiting:** Secure password hashing (bcrypt) and protected audit endpoints
-- **Per-user rate limiting:** on expensive operations and prevents abuse and controls GitHub API usage
+## 📌 Future Enhancements
 * **Redis-backed distributed rate limiting:** Transitioning from in-memory to Redis to support multi-worker deployments.
 * **Alembic migrations:** Implementing structured database versioning and schema evolution.
 * **Unit & integration tests:** Comprehensive test suite using `pytest` and `httpx` for async API testing.
